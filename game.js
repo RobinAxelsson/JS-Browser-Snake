@@ -10,7 +10,7 @@ export class Game {
         this.downEnd = endXY[1];
         this.food = []
 
-        this.snake = new Snake(this.rightEnd / 2, this.downEnd / 2, 2);
+        this.snake = new Snake(this.rightEnd / 2, this.downEnd / 2, 3);
         this.coordGetters = []
         this.getSnakeCoords = this.snake.getBody
     }

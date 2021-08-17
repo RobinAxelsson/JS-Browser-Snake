@@ -12,22 +12,25 @@ export class GameGraphics {
         this.gameBoard = gameBoard;
     }
     /**
-     * 
      * @param {string} styleClass css class of element to render
-     * @param {[[number]]} coords list of part coordinates 
+     * @param {[number]} coords list of part coordinates 
      */
-    __draw(styleClass, coords) {
-        coords.forEach(part => {
-            const gameEl = document.createElement('div');
-            gameEl.style.gridRowStart = part[0];
-            gameEl.style.gridColumnStart = part[1];
-            gameEl.classList.add(styleClass);
-            this.gameBoard.appendChild(gameEl);
+    __drawPiece(styleClass, coords) {
+        const gameEl = document.createElement('div');
+        gameEl.style.gridRowStart = coords[0];
+        gameEl.style.gridColumnStart = coords[1];
+        gameEl.classList.add(styleClass);
+        this.gameBoard.appendChild(gameEl);
+    }
+    __drawSnake() {
+        this.getSnakeFunc().forEach(part => {
+            this.__drawPiece("snake", part);
         })
     }
     refresh() {
-        this.__draw("snake", this.getSnakeFunc());
-        this.__draw("food", this.getFoodFunc())
+        this.gameBoard.innerHTML = "";
+        this.__drawSnake();
+        this.__drawPiece("food", this.getFoodFunc()[0])
     }
 }
 // function draw(x, y) {
