@@ -1,3 +1,5 @@
+import { X_TILES, Y_TILES } from "./Const.js";
+
 export class GameGraphics {
     /** 
      * @typedef {function(): [[number]]} pieceGetter * /
@@ -7,6 +9,8 @@ export class GameGraphics {
      * @param {HTMLDivElement} gameBoard is the gameboard where pieces get rendered.
      */
     constructor(getSnakeFunc, getFoodFunc, gameBoard) {
+        gameBoard.style.setProperty("grid-template-rows", `repeat(${Y_TILES}, 1fr)`);
+        gameBoard.style.setProperty("grid-template-columns", `repeat(${X_TILES}, 1fr)`);
         this.getSnakeFunc = getSnakeFunc;
         this.getFoodFunc = getFoodFunc;
         this.gameBoard = gameBoard;
