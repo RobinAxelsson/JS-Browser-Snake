@@ -1,3 +1,5 @@
+import { X_TILES, Y_TILES } from "./const.js";
+
 export class Game {
     /**
      * @param {[number, number]} startXY 
@@ -8,11 +10,12 @@ export class Game {
         this.topEnd = startXY[1];
         this.rightEnd = endXY[0];
         this.downEnd = endXY[1];
-        this.food = []
+        this.food = [];
+        this.gameOver = false;
 
         this.snake = new Snake(this.rightEnd / 2, this.downEnd / 2, 3);
         this.coordGetters = []
-        this.getSnakeCoords = this.snake.getBody
+        this.getSnakeCoords = this.snake.getBody;
     }
     getFoodCoords = () => this.food
     spawnFood() {
@@ -27,24 +30,48 @@ export class Game {
         }
         this.food.push([randX, randY]);
     }
-    Tick() {
+    tick() {
         this.snake.move();
         if (this.food.length === 0) {
             this.spawnFood();
         }
-        let head = this.snake.getHead();
-        let food = this.food[0];
-        if (head[0] === food[0] && head[1] === food[1]) {
+        let status = this.snakeStatus();
+        if (status === Head.Wall){
+            this.gameOver = true;
+            return
+        }
+        if (status === Head.Food) {
             this.snake.grow();
             this.food.pop();
         }
     }
+    snakeStatus = () => Head.getPosition(this.snake, this.food);
 }
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+class Head{
+    static Free = 0
+    static Food = 1
+    static Wall = 2
+    /**
+     * @param {Snake} snake 
+     * @param {[[number]]} food
+     * */
+    static getPosition(snake, food){
+        let head = snake.getHead();
+        let x = head[0];
+        let y = head[1];
+        if(x < 0 || x >= X_TILES) return Head.Wall;
+        if(y < 0 || y >= Y_TILES) return Head.Wall;
+        let fx = food[0][0];
+        let fy = food[0][1];
+        if(x === fx && y === fy) return Head.Food;
+        return Head.Free;
+    }
 }
 class Direction {
     static Up = 0

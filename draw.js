@@ -33,11 +33,3 @@ export class GameGraphics {
         this.__drawPiece("food", this.getFoodFunc()[0])
     }
 }
-// function draw(x, y) {
-//     const bodyEl = document.createElement('div');
-//     bodyEl.style.gridRowStart = x;
-//     bodyEl.style.gridColumnStart = y;
-//     bodyEl.classList
-//     const gameBoard = document.getElementById("game-board");
-//     gameBoard.appendChild(bodyEl);
-// }
