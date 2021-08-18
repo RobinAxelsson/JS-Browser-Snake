@@ -28,8 +28,8 @@ export class GameGraphics {
    */
   __drawPiece(styleClass, coords) {
     const gameEl = document.createElement("div");
-    gameEl.style.gridRowStart = coords[0] + 1;
-    gameEl.style.gridColumnStart = coords[1] + 1;
+    gameEl.style.gridColumnStart = coords[0] + 1;
+    gameEl.style.gridRowStart = coords[1] + 1;
     gameEl.classList.add(styleClass);
     this.gameBoard.appendChild(gameEl);
   }
@@ -42,6 +42,7 @@ export class GameGraphics {
     this.gameBoard.innerHTML = "";
     renderTestField();
     this.__drawSnake();
-    this.__drawPiece("food", this.getFoodFunc()[0]);
+    if (this.getFoodFunc().length !== 0)
+      this.__drawPiece("food", this.getFoodFunc()[0]);
   }
 }

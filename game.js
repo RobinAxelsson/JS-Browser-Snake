@@ -35,9 +35,8 @@ export class Game {
     this.food.push([randX, randY]);
   }
   tick() {
-    console.log(this.snake.getHead());
-    this.gameOver = true;
     this.snake.move();
+    this.snake.info();
     if (this.food.length === 0) {
       this.spawnFood();
     }
@@ -84,6 +83,17 @@ export class Direction {
   static Right = 1;
   static Down = 2;
   static Left = 3;
+  static toString(d) {
+    return d === 0
+      ? "Up"
+      : d === 1
+      ? "Right"
+      : d === 2
+      ? "Down"
+      : d === 3
+      ? "Left"
+      : null;
+  }
   static turnRight(currentDirection) {
     if (currentDirection < 3) return currentDirection + 1;
     if (currentDirection == 3) return 0;

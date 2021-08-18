@@ -1,6 +1,6 @@
 import { Game } from "./Game.js";
 import { GameGraphics } from "./GameGraphics.js";
-import { SNAKE_SPEED, Y_TILES, X_TILES } from "./Const.js";
+import { SNAKE_SPEED } from "./Const.js";
 import { Control } from "./Control.js";
 import { renderTestField } from "./test.js";
 
