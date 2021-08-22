@@ -3,11 +3,12 @@ import { GameGraphics } from "./modules/GameGraphics.js";
 import { SNAKE_SPEED } from "./modules/Const.js";
 import { Control } from "./modules/Control.js";
 import { renderTestField } from "./modules/coordmap.js";
+import { DEFAULT_GAME } from "./modules/gamesettings.js";
 
 const board = document.getElementById("game-board");
 renderTestField();
 
-const game = new Game();
+const game = new Game(DEFAULT_GAME);
 const graphics = new GameGraphics(
   game.getSnakeCoords,
   game.getFoodCoords,

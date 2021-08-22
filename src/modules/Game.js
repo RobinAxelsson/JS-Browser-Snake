@@ -1,16 +1,39 @@
-import { SNAKE_HEAD, SNAKE_LENGTH, X_TILES, Y_TILES } from "./Const.js";
 import { Snake } from "./Snake.js";
 
+/**
+ * @typedef {Object} SnakeData
+ * @property {number} x
+ * @property {number} y
+ * @property {number} direction
+ * @property {string} color
+ */
+/**
+ * @typedef {Object} GameSettings
+ * @property {number} X_Tiles
+ * @property {number} Y_Tiles
+ * @property {number} SnakeLength
+ * @property {number} SnakeSpeed
+ * @property {SnakeData} Snake
+ */
 export class Game {
-  constructor() {
+  /**
+   * @param {GameSettings} settings
+   */
+  constructor(settings) {
     this.leftEnd = 0;
     this.topEnd = 0;
-    this.rightEnd = X_TILES - 1;
-    this.downEnd = Y_TILES - 1;
+    this.rightEnd = settings.X_Tiles - 1;
+    this.downEnd = settings.Y_Tiles - 1;
     this.food = [];
     this.gameOver = false;
-
-    this.snake = new Snake(SNAKE_HEAD.X, SNAKE_HEAD.Y, SNAKE_LENGTH);
+    this.foodCount = settings.Foods;
+    this.snake = new Snake(
+      settings.Snake.x,
+      settings.Snake.y,
+      settings.Snake.direction,
+      settings.SnakeLength,
+      settings.Snake.color
+    );
     this.coordGetters = [];
     this.getSnakeCoords = this.snake.getBody;
   }
@@ -36,7 +59,6 @@ export class Game {
   }
   tick() {
     this.snake.move();
-    //this.snake.info(); writes to console snake info
     if (this.food.length === 0) {
       this.spawnFood();
     }
@@ -50,7 +72,17 @@ export class Game {
       this.food.pop();
     }
   }
-  snakeStatus = () => Head.getPosition(this.snake, this.food);
+  snakeStatus() {
+    let head = this.snake.getHead();
+    let x = head[0];
+    let y = head[1];
+    if (x < 0 || x > this.rightEnd) return Head.Wall;
+    if (y < 0 || y > this.downEnd) return Head.Wall;
+    let fx = this.food[0][0];
+    let fy = this.food[0][1];
+    if (x === fx && y === fy) return Head.Food;
+    return Head.Free;
+  }
 }
 
 function getRandomInt(min, max) {
@@ -62,46 +94,4 @@ class Head {
   static Free = 0;
   static Food = 1;
   static Wall = 2;
-  /**
-   * @param {Snake} snake
-   * @param {[[number]]} food
-   * */
-  static getPosition(snake, food) {
-    let head = snake.getHead();
-    let x = head[0];
-    let y = head[1];
-    if (x < 0 || x >= X_TILES) return Head.Wall;
-    if (y < 0 || y >= Y_TILES) return Head.Wall;
-    let fx = food[0][0];
-    let fy = food[0][1];
-    if (x === fx && y === fy) return Head.Food;
-    return Head.Free;
-  }
-}
-export class Direction {
-  static Up = 0;
-  static Right = 1;
-  static Down = 2;
-  static Left = 3;
-  static toString(d) {
-    return d === 0
-      ? "Up"
-      : d === 1
-      ? "Right"
-      : d === 2
-      ? "Down"
-      : d === 3
-      ? "Left"
-      : null;
-  }
-  static turnRight(currentDirection) {
-    if (currentDirection < 3) return currentDirection + 1;
-    if (currentDirection == 3) return 0;
-    else throw "direction can only be 0-3";
-  }
-  static turnLeft(currentDirection) {
-    if (currentDirection > 0) return currentDirection - 1;
-    if (currentDirection == 0) return 3;
-    else throw "direction can only be 0-3";
-  }
 }

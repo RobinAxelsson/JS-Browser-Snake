@@ -1,5 +1,5 @@
 import { X_TILES, Y_TILES } from "./Const.js";
-import { Direction } from "./Game.js";
+import { Direction } from "./Direction.js";
 
 export class Snake {
   /**
@@ -7,9 +7,11 @@ export class Snake {
    * @param {number} y Headposition y integer
    * @param {number} direction Where the snake is going, Direction enum/integer 0-3
    * @param {number} length How many bodyparts at startup.
+   * @param {string} color snake color
    */
-  constructor(x, y, length) {
-    this.direction = Direction.Up;
+  constructor(x, y, direction, length, color) {
+    this.direction = direction;
+    this.color = color;
     this.body = [];
     for (let i = 0; i < length; i++) {
       this.body.push([x, y + i]);
