@@ -5,8 +5,8 @@ export class Snake {
   /**
    * @param {number} x Headposition x integer
    * @param {number} y Headposition y integer
-   * @param {number} direction
-   * @param {number} length
+   * @param {number} direction Where the snake is going, Direction enum/integer 0-3
+   * @param {number} length How many bodyparts at startup.
    */
   constructor(x, y, length) {
     this.direction = Direction.Up;

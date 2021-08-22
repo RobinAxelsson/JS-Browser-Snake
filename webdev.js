@@ -35,7 +35,6 @@ function main(currentTime) {
     update()
     draw()
 }
-
 window.requestAnimationFrame(main)
 
 function update() {
