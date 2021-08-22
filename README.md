@@ -1,5 +1,11 @@
 # Snake-Game in browser
 
+## NPM
+
+yarn add --save-dev @babel/core @babel/cli @babel/preset-env
+./node_modules/.bin/babel src --out-dir dist
+Maybe webpack command should be used instead.
+
 ## Requirements:
 
 - Classic snake-game
@@ -21,6 +27,7 @@
   - Selenium?
 
 ## User Stories
+
 - User wants to see score
 - User wants to choose keys
 - User wants to play on mobile

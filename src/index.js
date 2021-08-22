@@ -1,8 +1,8 @@
-import { Game } from "./Game.js";
-import { GameGraphics } from "./GameGraphics.js";
-import { SNAKE_SPEED } from "./Const.js";
-import { Control } from "./Control.js";
-import { renderTestField } from "./test.js";
+import { Game } from "./modules/Game.js";
+import { GameGraphics } from "./modules/GameGraphics.js";
+import { SNAKE_SPEED } from "./modules/Const.js";
+import { Control } from "./modules/Control.js";
+import { renderTestField } from "./modules/coordmap.js";
 
 const board = document.getElementById("game-board");
 renderTestField();

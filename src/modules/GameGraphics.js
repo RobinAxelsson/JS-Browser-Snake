@@ -1,5 +1,5 @@
 import { X_TILES, Y_TILES } from "./Const.js";
-import { renderTestField } from "./test.js";
+import { renderTestField } from "./coordmap.js";
 
 export class GameGraphics {
   /** 

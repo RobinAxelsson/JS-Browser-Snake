@@ -1,0 +1,32 @@
+{
+  "name": "js-browser-snake",
+  "version": "1.0.0",
+  "description": "## Requirements:",
+  "main": "main.js",
+  "scripts": {
+    "start": "webpack serve",
+    "watch": "webpack --watch",
+    "--test-watch": "jest --watch",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "RAX",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@types/jest": "^27.0.1",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "jest": "^27.0.6",
+    "puppeteer": "^10.2.0",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.14.8"
+  }
+}

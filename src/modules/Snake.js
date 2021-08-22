@@ -1,4 +1,4 @@
-import { X_TILES, Y_TILES } from "./const.js";
+import { X_TILES, Y_TILES } from "./Const.js";
 import { Direction } from "./Game.js";
 
 export class Snake {

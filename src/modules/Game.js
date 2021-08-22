@@ -36,7 +36,7 @@ export class Game {
   }
   tick() {
     this.snake.move();
-    this.snake.info();
+    //this.snake.info(); writes to console snake info
     if (this.food.length === 0) {
       this.spawnFood();
     }
