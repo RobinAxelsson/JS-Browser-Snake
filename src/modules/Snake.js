@@ -16,7 +16,6 @@ export class Snake {
     for (let i = 0; i < length; i++) {
       this.body.push([x, y + i]);
     }
-    this.info();
   }
   info() {
     console.log("Snake:");

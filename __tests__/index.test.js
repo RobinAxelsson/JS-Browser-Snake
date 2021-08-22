@@ -27,13 +27,13 @@ afterAll(async () => {
 //   expect(10).toBe(10);
 //   console.log("Test1 finnished");
 // });
-test("UI-header", async () => {
-  const response = await page.evaluate(() => {
-    return document.documentElement.outerHTML;
-  });
-  console.log(response);
-  expect(typeof response).toBe("string");
-});
+// test("UI-header", async () => {
+//   const response = await page.evaluate(() => {
+//     return document.documentElement.outerHTML;
+//   });
+//   //console.log(response);
+//   expect(typeof response).toBe("string");
+// });
 //   expect(response).toBe("HEADER__");
 // });
 // test("UI-Console-2", async () => {

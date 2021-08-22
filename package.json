@@ -7,7 +7,7 @@
     "start": "webpack serve",
     "watch": "webpack --watch",
     "--test-watch": "jest --watch",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "RAX",
