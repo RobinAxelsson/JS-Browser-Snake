@@ -7,8 +7,10 @@ export class Snake {
    * @param {number} direction Where the snake is going, Direction enum/integer 0-3
    * @param {number} length How many bodyparts at startup.
    * @param {string} style snake style
+   * @param {string} leftKey keyevent
+   * @param {string} rightKey keyevent
    */
-  constructor(x, y, direction, length, style) {
+  constructor(x, y, direction, length, style, leftKey, rightKey) {
     this.direction = direction;
     this.style = style;
     this.body = [];
@@ -16,6 +18,8 @@ export class Snake {
     for (let i = 0; i < length - 1; i++) {
       this.body[i + 1] = Direction.transformReverse(direction, this.body[i]);
     }
+    this.leftKey = leftKey;
+    this.rightKey = rightKey;
   }
   info() {
     console.log("Snake:");

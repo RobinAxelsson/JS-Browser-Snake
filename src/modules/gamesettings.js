@@ -11,7 +11,7 @@
  * @property {number} Y_Tiles
  * @property {number} SnakeLength
  * @property {number} SnakeSpeed
- * @property {SnakeData} Snake
+ * @property {[SnakeData]} Snakes
  */
 /** @type {GameSettings} */
 export const DEFAULT_GAME = {
@@ -19,10 +19,22 @@ export const DEFAULT_GAME = {
   Y_Tiles: 21,
   SnakeLength: 3,
   SnakeSpeed: 5,
-  Snake: {
-    x: 10,
-    y: 10,
-    direction: 0,
-    style: "snake-1",
-  },
+  Snakes: [
+    {
+      x: 3,
+      y: 10,
+      direction: 1,
+      style: "snake-1",
+      leftKey: "ArrowLeft",
+      rightKey: "ArrowRight",
+    },
+    {
+      x: 17,
+      y: 10,
+      direction: 2,
+      style: "snake-2",
+      leftKey: "q",
+      rightKey: "e",
+    },
+  ],
 };

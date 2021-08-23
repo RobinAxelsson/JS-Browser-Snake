@@ -16,9 +16,9 @@ const graphics = new GameGraphics(
   DEFAULT_GAME.Y_Tiles
 );
 let lastRenderTime = 0;
-let control = new Control(game.snake, "ArrowLeft", "ArrowRight");
+const controls = game.snakes.map((snake) => new Control(snake));
 document.addEventListener("keydown", (e) => {
-  control.onKeyPressEvent(e);
+  controls.forEach((c) => c.onKeyPressEvent(e));
 });
 function gameLoop(currentTime) {
   if (game.gameOver === true) return;

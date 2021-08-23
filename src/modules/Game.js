@@ -5,7 +5,9 @@ import { Board } from "./Board.js";
  * @property {number} x
  * @property {number} y
  * @property {number} direction
- * @property {string} color
+ * @property {string} style
+ * @property {string} leftKey
+ * @property {string} rightKey
  */
 /**
  * @typedef {Object} GameSettings
@@ -14,37 +16,30 @@ import { Board } from "./Board.js";
  * @property {number} Y_Tiles
  * @property {number} SnakeLength
  * @property {number} SnakeSpeed
- * @property {SnakeData} Snake
+ * @property {[SnakeData]} Snakes
  */
 export class Game {
   /**
    * @param {GameSettings} settings
    */
   constructor(settings) {
-    this.leftEnd = 0;
-    this.topEnd = 0;
-    this.rightEnd = settings.X_Tiles - 1;
-    this.downEnd = settings.Y_Tiles - 1;
     this.food = [];
     this.gameOver = false;
     this.foodCount = settings.Foods;
-    this.snake = new Snake(
-      settings.Snake.x,
-      settings.Snake.y,
-      settings.Snake.direction,
-      settings.SnakeLength,
-      settings.Snake.style
-    );
-    this.coordGetters = [];
+    this.snakes = settings.Snakes.map((snakeData) => {
+      return new Snake(
+        snakeData.x,
+        snakeData.y,
+        snakeData.direction,
+        settings.SnakeLength,
+        snakeData.style,
+        snakeData.leftKey,
+        snakeData.rightKey
+      );
+    });
     this.board = new Board(settings.X_Tiles, settings.Y_Tiles);
     this.getSnakePieces = () => {
-      let pieces = this.snake
-        .getBody()
-        .map((part) => ({
-          style: this.snake.style,
-          coords: [part[0], part[1]],
-        }));
-      return pieces;
+      return this.snakes.reduce(this.snakeReducer, []);
     };
     this.getFoodPieces = () => {
       let pieces = this.food.map((part) => ({
@@ -54,44 +49,50 @@ export class Game {
       return pieces;
     };
   }
-  getFoodCoords = () => this.food;
+  snakeReducer(outlist, snake) {
+    let pieces = snake.body.map((coords) => ({
+      style: snake.style,
+      coords: coords,
+    }));
+    return [...outlist, ...pieces];
+  }
   spawnFood() {
-    let coords = this.board.getFreeSquare(this.snake.getBody());
+    let coords = this.board.getFreeSquare(
+      this.snakes.reduce((arr, snake) => {
+        return [...arr, ...snake.getBody()];
+      }, [])
+    );
     this.food.push(coords);
   }
-  moveSnake() {
-    this.snake.move();
-    this.board.transformEdgeCoords(this.snake.getBody());
+  /**
+   *
+   * @param {Snake} s
+   */
+  moveSnake(s) {
+    s.move();
+    this.board.transformEdgeCoords(s.getBody());
+    let head = s.getHead();
+    if (this.food.length > 0) {
+      this.food.forEach((f) => {
+        if (f[0] == head[0] && f[1] == head[1]) s.grow();
+      });
+    }
+    const hit = (head) => {
+      let pieces = this.getSnakePieces();
+      return (
+        1 <
+        pieces.filter((p) => p.coords[0] === head[0] && p.coords[1] === head[1])
+      );
+    };
+    if (hit(head) === true) this.gameOver = true;
   }
   tick() {
     //this.snake.info();
-    this.moveSnake();
+    this.snakes.forEach((s) => {
+      this.moveSnake(s);
+    });
     if (this.food.length === 0) {
       this.spawnFood();
     }
-    let status = this.snakeStatus();
-    if (status === Head.Food) {
-      this.snake.grow();
-      this.food.pop();
-    }
-    if (status === Head.Body) {
-      this.gameOver = true;
-    }
   }
-  snakeStatus() {
-    let head = this.snake.getHead();
-    let x = head[0];
-    let y = head[1];
-    let hit = this.snake.body.filter((p) => p[0] === x && p[1] === y);
-    if (hit.length > 1) return Head.Body;
-    let fx = this.food[0][0];
-    let fy = this.food[0][1];
-    if (x === fx && y === fy) return Head.Food;
-    return Head.Free;
-  }
-}
-class Head {
-  static Free = 0;
-  static Food = 1;
-  static Body = 2;
 }

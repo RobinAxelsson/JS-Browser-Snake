@@ -7,12 +7,14 @@ const TEST_GAME = {
   Y_Tiles: 5,
   SnakeLength: 3,
   SnakeSpeed: 5,
-  Snake: {
-    x: 4,
-    y: 0,
-    direction: 0,
-    style: "snake-1",
-  },
+  Snakes: [
+    {
+      x: 4,
+      y: 0,
+      direction: 0,
+      style: "snake-1",
+    },
+  ],
 };
 test("Instantiating game", () => {
   let game = new Game(TEST_GAME);
@@ -32,9 +34,50 @@ test("Instantiating game", () => {
 
 test("Game Over", () => {
   let game = new Game(TEST_GAME);
-  let snake = game.snake;
+  let snake = game.snakes[0];
   snake.turnLeft();
   snake.turnLeft();
+  game.tick();
+  expect(game.gameOver).toBe(true);
+});
+
+const TEST_GAME_2Player = {
+  X_Tiles: 5,
+  Y_Tiles: 5,
+  SnakeLength: 2,
+  SnakeSpeed: 5,
+  Snakes: [
+    {
+      x: 1,
+      y: 0,
+      direction: 1,
+      style: "snake-1",
+    },
+    {
+      x: 1,
+      y: 1,
+      direction: 1,
+      style: "snake-1",
+    },
+  ],
+};
+test("2 player instance", () => {
+  let game = new Game(TEST_GAME_2Player);
+  let snake1 = game.snakes[0];
+  let snake2 = game.snakes[1];
+  expect(snake1.getBody()).toStrictEqual([
+    [1, 0],
+    [0, 0],
+  ]);
+  expect(snake2.getBody()).toStrictEqual([
+    [1, 1],
+    [0, 1],
+  ]);
+});
+test("2 player instance", () => {
+  let game = new Game(TEST_GAME_2Player);
+  let snake2 = game.snakes[1];
+  snake2.turnLeft();
   game.tick();
   expect(game.gameOver).toBe(true);
 });

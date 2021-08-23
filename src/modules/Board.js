@@ -17,9 +17,6 @@ export class Board {
    */
   transformEdgeCoords(coords) {
     coords.forEach((coord) => {
-      console.log("x: " + coord[0]);
-      console.log("y: " + coord[1]);
-      console.log("max_y: " + this.max_y);
       coord[0] =
         coord[0] > this.max_x
           ? (coord[0] -= this.max_x + 1)
@@ -32,8 +29,6 @@ export class Board {
           : coord[1] < 0
           ? (coord[1] += this.max_y + 1)
           : coord[1];
-      console.log("x: " + coord[0]);
-      console.log("y: " + coord[1]);
     });
   }
   getFreeSquare(snakecoords) {
