@@ -72,19 +72,25 @@ export class Game {
     s.move();
     this.board.transformEdgeCoords(s.getBody());
     let head = s.getHead();
-    if (this.food.length > 0) {
-      this.food.forEach((f) => {
-        if (f[0] == head[0] && f[1] == head[1]) s.grow();
-      });
+    console.log(head);
+    this.food.forEach((f) => {
+      if (f[0] == head[0] && f[1] == head[1]) {
+        s.grow();
+        this.food.pop();
+      }
+    });
+    let parts = this.snakes.reduce((arr, snake) => {
+      return [...arr, ...snake.getBody()];
+    }, []);
+    let matches = this.coordsExist(head, parts);
+    if (matches > 1) this.gameOver = true;
+  }
+  coordsExist(coord, arr) {
+    let count = 0;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i][0] === coord[0] && arr[i][1] === coord[1]) count++;
     }
-    const hit = (head) => {
-      let pieces = this.getSnakePieces();
-      return (
-        1 <
-        pieces.filter((p) => p.coords[0] === head[0] && p.coords[1] === head[1])
-      );
-    };
-    if (hit(head) === true) this.gameOver = true;
+    return count;
   }
   tick() {
     //this.snake.info();
