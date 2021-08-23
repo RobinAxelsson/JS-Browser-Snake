@@ -1,5 +1,4 @@
 import { Snake } from "./Snake";
-
 export class Board {
   /**
    * @param {number} x_Tiles
@@ -11,6 +10,7 @@ export class Board {
     this.min_y = 0;
     this.max_x = X_Tiles - 1;
     this.max_y = Y_Tiles - 1;
+    this.squares = [];
   }
   /**
    * @param {Snake} snake
@@ -37,5 +37,26 @@ export class Board {
       console.log("x: " + coord[0]);
       console.log("y: " + coord[1]);
     });
+  }
+  getFreeSquare(snake) {
+    let onSnake = true;
+    let body = snake.getBody();
+    let randX = 0;
+    let randY = 0;
+    const getRandomInt = (min, max) => {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min) + min);
+    };
+    while (onSnake) {
+      randX = getRandomInt(this.min_x, this.max_x);
+      randY = getRandomInt(this.min_y, this.max_y);
+      if (
+        body.filter((coord) => coord[0] === randX && coord[1] === randY)
+          .length === 0
+      )
+        onSnake = false;
+    }
+    return [randX, randY];
   }
 }

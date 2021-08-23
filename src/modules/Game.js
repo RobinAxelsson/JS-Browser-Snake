@@ -44,24 +44,15 @@ export class Game {
   }
   getFoodCoords = () => this.food;
   spawnFood() {
-    let onSnake = true;
-    let body = this.snake.getBody();
-    let randX = 0;
-    let randY = 0;
-    while (onSnake) {
-      randX = getRandomInt(this.leftEnd, this.rightEnd);
-      randY = getRandomInt(this.topEnd, this.downEnd);
-      if (
-        body.filter((coord) => coord[0] === randX && coord[1] === randY)
-          .length === 0
-      )
-        onSnake = false;
-    }
-    this.food.push([randX, randY]);
+    let coords = this.board.getFreeSquare(this.snake);
+    this.food.push(coords);
+  }
+  moveSnake() {
+    this.board.moveSnake(this.snake);
   }
   tick() {
     //this.snake.info();
-    this.board.moveSnake(this.snake);
+    this.moveSnake();
     if (this.food.length === 0) {
       this.spawnFood();
     }
@@ -70,27 +61,24 @@ export class Game {
       this.snake.grow();
       this.food.pop();
     }
+    if (status === Head.Body) {
+      this.gameOver = true;
+    }
   }
   snakeStatus() {
     let head = this.snake.getHead();
     let x = head[0];
     let y = head[1];
-    if (x < 0 || x > this.rightEnd) return Head.Wall;
-    if (y < 0 || y > this.downEnd) return Head.Wall;
+    let hit = this.snake.body.filter((p) => p[0] === x && p[1] === y);
+    if (hit.length > 1) return Head.Body;
     let fx = this.food[0][0];
     let fy = this.food[0][1];
     if (x === fx && y === fy) return Head.Food;
     return Head.Free;
   }
 }
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
 class Head {
   static Free = 0;
   static Food = 1;
-  static Wall = 2;
+  static Body = 2;
 }
