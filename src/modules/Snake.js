@@ -1,4 +1,3 @@
-import { X_TILES, Y_TILES } from "./Const.js";
 import { Direction } from "./Direction.js";
 
 export class Snake {
@@ -13,8 +12,9 @@ export class Snake {
     this.direction = direction;
     this.color = color;
     this.body = [];
-    for (let i = 0; i < length; i++) {
-      this.body.push([x, y + i]);
+    this.body.push([x, y]);
+    for (let i = 0; i < length - 1; i++) {
+      this.body[i + 1] = Direction.transformReverse(direction, this.body[i]);
     }
   }
   info() {
@@ -31,36 +31,25 @@ export class Snake {
     let last = this.body[this.body.length - 1];
     this.body.push([last[0], last[1]]);
   }
-  move() {
-    let headX = this.body[0][0];
-    let headY = this.body[0][1];
-    let xydiff =
-      this.direction === Direction.Right
-        ? [1, 0]
-        : this.direction === Direction.Left
-        ? [-1, 0]
-        : this.direction === Direction.Up
-        ? [0, -1]
-        : this.direction === Direction.Down
-        ? [0, 1]
-        : null;
-    let newHead = [headX + xydiff[0], headY + xydiff[1]];
+  move(max_x, max_y) {
+    let newHead = Direction.transform(this.direction, this.body[0]);
     this.body.pop();
     this.body.unshift(newHead);
-    this.body.forEach((part) => {
-      part[0] =
-        part[0] > X_TILES - 1
-          ? (part[0] -= X_TILES)
-          : part[0] < 0
-          ? (part[0] += X_TILES)
-          : part[0];
-      part[1] =
-        part[1] > Y_TILES - 1
-          ? (part[1] -= Y_TILES)
-          : part[1] < 0
-          ? (part[1] += Y_TILES)
-          : part[1];
+    this.body.forEach((coord) => {
+      coord[0] =
+        coord[0] > max_x
+          ? (coord[0] -= max_x + 1)
+          : coord[0] < 0
+          ? (coord[0] += max_x + 1)
+          : coord[0];
+      coord[1] =
+        coord[1] > max_y
+          ? (coord[1] -= max_y + 1)
+          : coord[1] < 0
+          ? (coord[1] += max_y + 1)
+          : coord[1];
     });
+    return this.body;
   }
   getBody = () => this.body;
   getHead = () => this.body[0];

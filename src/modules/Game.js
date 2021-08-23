@@ -58,15 +58,12 @@ export class Game {
     this.food.push([randX, randY]);
   }
   tick() {
-    this.snake.move();
+    //this.snake.info();
+    this.snake.move(this.rightEnd, this.downEnd);
     if (this.food.length === 0) {
       this.spawnFood();
     }
     let status = this.snakeStatus();
-    if (status === Head.Wall) {
-      this.gameOver = true;
-      return;
-    }
     if (status === Head.Food) {
       this.snake.grow();
       this.food.pop();

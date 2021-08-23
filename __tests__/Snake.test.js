@@ -14,11 +14,11 @@ test("Turning left", () => {
   expect(snake.direction).toBe(Direction.Left);
 });
 test("Bodycoordinates of snake direction.up", () => {
-  let snake = new Snake(0, 0, Direction.Up, 3, "green");
+  let snake = new Snake(1, 0, Direction.Up, 3, "green");
   expect(snake.getBody()).toStrictEqual([
-    [0, 0],
-    [0, 1],
-    [0, 2],
+    [1, 0],
+    [1, 1],
+    [1, 2],
   ]);
 });
 test("moving snake", () => {
@@ -32,11 +32,50 @@ test("moving snake", () => {
     [0, 1],
   ]);
 });
+test("moving snake three steps", () => {
+  let snake = new Snake(1, 1, Direction.Down, 3, "green");
+  snake.move(10, 10);
+  snake.move(10, 10);
+  snake.move(10, 10);
+
+  expect(snake.getBody()).toStrictEqual([
+    [1, 4],
+    [1, 3],
+    [1, 2],
+  ]);
+});
+test("moving snake three steps up from middle", () => {
+  let snake = new Snake(10, 10, Direction.Up, 3, "green");
+  snake.move(20, 20);
+  snake.move(20, 20);
+  snake.move(20, 20);
+
+  expect(snake.getBody()).toStrictEqual([
+    [10, 7],
+    [10, 8],
+    [10, 9],
+  ]);
+});
+test("moving snake over edge", () => {
+  let snake = new Snake(0, 0, Direction.Left, 1, "green");
+  snake.move(4, 2);
+  expect(snake.getBody()).toStrictEqual([[4, 0]]);
+});
 test("Bodycoordinates of direction.left", () => {
   let snake = new Snake(0, 0, Direction.Left, 3, "green");
   expect(snake.getBody()).toStrictEqual([
     [0, 0],
     [1, 0],
+    [2, 0],
+  ]);
+});
+test("Snake grow", () => {
+  let snake = new Snake(0, 0, Direction.Left, 3, "green");
+  snake.grow();
+  expect(snake.getBody()).toStrictEqual([
+    [0, 0],
+    [1, 0],
+    [2, 0],
     [2, 0],
   ]);
 });

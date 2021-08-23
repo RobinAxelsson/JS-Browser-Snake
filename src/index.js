@@ -30,5 +30,3 @@ function gameLoop(currentTime) {
   window.requestAnimationFrame(gameLoop);
 }
 gameLoop();
-
-//KeyboardEvent {isTrusted: true, key: "ArrowDown", code: "ArrowDown", location: 0, ctrlKey: false, …}
