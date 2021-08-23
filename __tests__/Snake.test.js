@@ -60,13 +60,15 @@ test("moving snake three steps up from middle", () => {
 test("moving snake over edge", () => {
   let board = new Board(5, 3);
   let snake = new Snake(0, 0, Direction.Left, 1, "green");
-  board.moveSnake(snake);
+  snake.move();
+  board.transformEdgeCoords(snake.getBody());
   expect(snake.getBody()).toStrictEqual([[4, 0]]);
 });
 test("moving snake over edge upwards", () => {
   let board = new Board(5, 6);
   let snake = new Snake(0, 0, Direction.Up, 1, "green");
-  board.moveSnake(snake);
+  snake.move();
+  board.transformEdgeCoords(snake.getBody());
   expect(snake.getBody()).toStrictEqual([[0, 5]]);
 });
 test("Bodycoordinates of direction.left", () => {

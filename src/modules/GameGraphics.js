@@ -2,14 +2,10 @@ import { X_TILES, Y_TILES } from "./Const.js";
 import { renderTestField } from "./coordmap.js";
 
 export class GameGraphics {
-  /** 
-     * @typedef {function(): [[number]]} pieceGetter * /
-     
-    /* @param {pieceGetter} getSnakeFunc gets coordinates for snake body.
-     * @param {pieceGetter} getFoodFunc gets coordinates for food.
-     * @param {HTMLDivElement} gameBoard is the gameboard where pieces get rendered.
-     */
-  constructor(getSnakeFunc, getFoodFunc, gameBoard) {
+  /**
+   * @param {HTMLDivElement} gameBoard is the gameboard where pieces get rendered.
+   */
+  constructor(getSnakePieces, getFoodPieces, gameBoard) {
     gameBoard.style.setProperty(
       "grid-template-rows",
       `repeat(${Y_TILES}, 1fr)`
@@ -18,8 +14,8 @@ export class GameGraphics {
       "grid-template-columns",
       `repeat(${X_TILES}, 1fr)`
     );
-    this.getSnakeFunc = getSnakeFunc;
-    this.getFoodFunc = getFoodFunc;
+    this.getSnakePieces = getSnakePieces;
+    this.getFoodPieces = getFoodPieces;
     this.gameBoard = gameBoard;
   }
   /**
@@ -34,15 +30,21 @@ export class GameGraphics {
     this.gameBoard.appendChild(gameEl);
   }
   __drawSnake() {
-    this.getSnakeFunc().forEach((part) => {
-      this.__drawPiece("snake", part);
+    let snakePieces = this.getSnakePieces();
+    snakePieces.forEach((p) => {
+      this.__drawPiece(p.style, p.coords);
+    });
+  }
+  __drawFood() {
+    let foodPieces = this.getFoodPieces();
+    foodPieces.forEach((p) => {
+      this.__drawPiece(p.style, p.coords);
     });
   }
   refresh() {
     this.gameBoard.innerHTML = "";
     renderTestField();
     this.__drawSnake();
-    if (this.getFoodFunc().length !== 0)
-      this.__drawPiece("food", this.getFoodFunc()[0]);
+    this.__drawFood();
   }
 }

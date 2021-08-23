@@ -36,19 +36,30 @@ export class Game {
       settings.Snake.color
     );
     this.coordGetters = [];
-    this.getSnakeCoords = this.snake.getBody;
+    //this.getSnakeCoords = this.snake.getBody;
     this.board = new Board(settings.X_Tiles, settings.Y_Tiles);
-  }
-  get Snake() {
-    return this.snake;
+    this.getSnakePieces = () => {
+      let pieces = this.snake
+        .getBody()
+        .map((part) => ({ style: "snake", coords: [part[0], part[1]] }));
+      return pieces;
+    };
+    this.getFoodPieces = () => {
+      let pieces = this.food.map((part) => ({
+        style: "food",
+        coords: [part[0], part[1]],
+      }));
+      return pieces;
+    };
   }
   getFoodCoords = () => this.food;
   spawnFood() {
-    let coords = this.board.getFreeSquare(this.snake);
+    let coords = this.board.getFreeSquare(this.snake.getBody());
     this.food.push(coords);
   }
   moveSnake() {
-    this.board.moveSnake(this.snake);
+    this.snake.move();
+    this.board.transformEdgeCoords(this.snake.getBody());
   }
   tick() {
     //this.snake.info();

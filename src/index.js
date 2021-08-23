@@ -10,8 +10,9 @@ renderTestField();
 
 const game = new Game(DEFAULT_GAME);
 const graphics = new GameGraphics(
-  game.getSnakeCoords,
-  game.getFoodCoords,
+  // game.getSnakeCoords,
+  game.getSnakePieces,
+  game.getFoodPieces,
   board
 );
 let lastRenderTime = 0;

@@ -13,12 +13,10 @@ export class Board {
     this.squares = [];
   }
   /**
-   * @param {Snake} snake
+   * @param {[[number]]} coords
    */
-  moveSnake(snake) {
-    snake.move();
-    //adjust the body at edges
-    snake.body.forEach((coord) => {
+  transformEdgeCoords(coords) {
+    coords.forEach((coord) => {
       console.log("x: " + coord[0]);
       console.log("y: " + coord[1]);
       console.log("max_y: " + this.max_y);
@@ -38,9 +36,8 @@ export class Board {
       console.log("y: " + coord[1]);
     });
   }
-  getFreeSquare(snake) {
+  getFreeSquare(snakecoords) {
     let onSnake = true;
-    let body = snake.getBody();
     let randX = 0;
     let randY = 0;
     const getRandomInt = (min, max) => {
@@ -52,7 +49,7 @@ export class Board {
       randX = getRandomInt(this.min_x, this.max_x);
       randY = getRandomInt(this.min_y, this.max_y);
       if (
-        body.filter((coord) => coord[0] === randX && coord[1] === randY)
+        snakecoords.filter((coord) => coord[0] === randX && coord[1] === randY)
           .length === 0
       )
         onSnake = false;
