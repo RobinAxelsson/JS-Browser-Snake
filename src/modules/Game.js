@@ -33,15 +33,17 @@ export class Game {
       settings.Snake.y,
       settings.Snake.direction,
       settings.SnakeLength,
-      settings.Snake.color
+      settings.Snake.style
     );
     this.coordGetters = [];
-    //this.getSnakeCoords = this.snake.getBody;
     this.board = new Board(settings.X_Tiles, settings.Y_Tiles);
     this.getSnakePieces = () => {
       let pieces = this.snake
         .getBody()
-        .map((part) => ({ style: "snake", coords: [part[0], part[1]] }));
+        .map((part) => ({
+          style: this.snake.style,
+          coords: [part[0], part[1]],
+        }));
       return pieces;
     };
     this.getFoodPieces = () => {

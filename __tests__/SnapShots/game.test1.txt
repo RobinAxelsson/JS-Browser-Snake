@@ -1,0 +1,34 @@
+{
+  "leftEnd": 0,
+  "topEnd": 0,
+  "rightEnd": 4,
+  "downEnd": 4,
+  "food": [],
+  "gameOver": false,
+  "snake": {
+    "direction": 0,
+    "style": "snake-1",
+    "body": [
+      [
+        4,
+        0
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ]
+    ]
+  },
+  "coordGetters": [],
+  "board": {
+    "min_x": 0,
+    "min_y": 0,
+    "max_x": 4,
+    "max_y": 4,
+    "squares": []
+  }
+}

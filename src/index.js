@@ -10,10 +10,10 @@ renderTestField();
 
 const game = new Game(DEFAULT_GAME);
 const graphics = new GameGraphics(
-  // game.getSnakeCoords,
-  game.getSnakePieces,
-  game.getFoodPieces,
-  board
+  [game.getSnakePieces, game.getFoodPieces],
+  board,
+  DEFAULT_GAME.X_Tiles,
+  DEFAULT_GAME.Y_Tiles
 );
 let lastRenderTime = 0;
 let control = new Control(game.snake, "ArrowLeft", "ArrowRight");

@@ -6,11 +6,11 @@ export class Snake {
    * @param {number} y Headposition y integer
    * @param {number} direction Where the snake is going, Direction enum/integer 0-3
    * @param {number} length How many bodyparts at startup.
-   * @param {string} color snake color
+   * @param {string} style snake style
    */
-  constructor(x, y, direction, length, color) {
+  constructor(x, y, direction, length, style) {
     this.direction = direction;
-    this.color = color;
+    this.style = style;
     this.body = [];
     this.body.push([x, y]);
     for (let i = 0; i < length - 1; i++) {

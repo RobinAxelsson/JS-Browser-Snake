@@ -3,7 +3,7 @@
  * @property {number} x
  * @property {number} y
  * @property {number} direction
- * @property {string} color
+ * @property {string} style
  */
 /**
  * @typedef {Object} GameSettings
@@ -23,6 +23,6 @@ export const DEFAULT_GAME = {
     x: 10,
     y: 10,
     direction: 0,
-    color: "green",
+    style: "snake-1",
   },
 };
