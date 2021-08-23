@@ -1,5 +1,5 @@
 import { Snake } from "./Snake.js";
-
+import { Board } from "./Board.js";
 /**
  * @typedef {Object} SnakeData
  * @property {number} x
@@ -9,6 +9,7 @@ import { Snake } from "./Snake.js";
  */
 /**
  * @typedef {Object} GameSettings
+ * @property {Board} board
  * @property {number} X_Tiles
  * @property {number} Y_Tiles
  * @property {number} SnakeLength
@@ -36,6 +37,7 @@ export class Game {
     );
     this.coordGetters = [];
     this.getSnakeCoords = this.snake.getBody;
+    this.board = new Board(settings.X_Tiles, settings.Y_Tiles);
   }
   get Snake() {
     return this.snake;
@@ -59,7 +61,7 @@ export class Game {
   }
   tick() {
     //this.snake.info();
-    this.snake.move(this.rightEnd, this.downEnd);
+    this.board.moveSnake(this.snake);
     if (this.food.length === 0) {
       this.spawnFood();
     }

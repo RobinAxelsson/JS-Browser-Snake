@@ -31,25 +31,10 @@ export class Snake {
     let last = this.body[this.body.length - 1];
     this.body.push([last[0], last[1]]);
   }
-  move(max_x, max_y) {
+  move() {
     let newHead = Direction.transform(this.direction, this.body[0]);
     this.body.pop();
     this.body.unshift(newHead);
-    this.body.forEach((coord) => {
-      coord[0] =
-        coord[0] > max_x
-          ? (coord[0] -= max_x + 1)
-          : coord[0] < 0
-          ? (coord[0] += max_x + 1)
-          : coord[0];
-      coord[1] =
-        coord[1] > max_y
-          ? (coord[1] -= max_y + 1)
-          : coord[1] < 0
-          ? (coord[1] += max_y + 1)
-          : coord[1];
-    });
-    return this.body;
   }
   getBody = () => this.body;
   getHead = () => this.body[0];
