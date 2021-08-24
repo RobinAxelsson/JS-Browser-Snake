@@ -10,16 +10,22 @@ export class Snake {
    * @param {string} leftKey keyevent
    * @param {string} rightKey keyevent
    */
-  constructor(x, y, direction, length, style, leftKey, rightKey) {
-    this.direction = direction;
+  constructor(style) {
+    this.direction = null;
     this.style = style;
     this.body = [];
+    // this.body.push([x, y]);
+    // for (let i = 0; i < length - 1; i++) {
+    //   this.body[i + 1] = Direction.transformReverse(direction, this.body[i]);
+    // }
+    this.leftKey = leftKey;
+    this.rightKey = rightKey;
+  }
+  createBody(x, y, direction) {
     this.body.push([x, y]);
     for (let i = 0; i < length - 1; i++) {
       this.body[i + 1] = Direction.transformReverse(direction, this.body[i]);
     }
-    this.leftKey = leftKey;
-    this.rightKey = rightKey;
   }
   info() {
     console.log("Snake:");

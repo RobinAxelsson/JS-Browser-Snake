@@ -13,14 +13,11 @@ export class Control {
    * @param {KeyboardEvent} event
    */
   onKeyPressEvent(event) {
-    console.log(event.key);
     if (event.key === this.leftKey) {
       this.snake.turnLeft();
-      console.log(this.snake.style + ": turned left");
     }
     if (event.key === this.rightKey) {
       this.snake.turnRight();
-      console.log(this.snake.style + ": turned right");
     }
   }
 }

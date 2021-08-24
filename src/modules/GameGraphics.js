@@ -1,20 +1,21 @@
-import { renderTestField } from "./coordmap.js";
+import { Board } from "./Board";
 
 export class GameGraphics {
   /**
-   * @param {HTMLDivElement} gameBoard is the gameboard where pieces get rendered.
+   * @param {Board} board
+   * @param {HTMLDivElement} htmlBoard is the gameboard where pieces get rendered.
    */
-  constructor(pieceFuncs, gameBoard, X_TILES, Y_TILES) {
-    gameBoard.style.setProperty(
-      "grid-template-rows",
-      `repeat(${Y_TILES}, 1fr)`
-    );
-    gameBoard.style.setProperty(
+  constructor(board, htmlBoard) {
+    htmlBoard.style.setProperty(
       "grid-template-columns",
-      `repeat(${X_TILES}, 1fr)`
+      `repeat(${max_x + 1}, 1fr)`
+    );
+    htmlBoard.style.setProperty(
+      "grid-template-rows",
+      `repeat(${board.max_y + 1}, 1fr)`
     );
     this.pieceFuncs = pieceFuncs;
-    this.gameBoard = gameBoard;
+    this.gameBoard = htmlBoard;
   }
   /**
    * @param {string} styleClass css class of element to render
@@ -27,17 +28,16 @@ export class GameGraphics {
     gameEl.classList.add(styleClass);
     this.gameBoard.appendChild(gameEl);
   }
-  __drawAll() {
-    this.pieceFuncs.forEach((func) => {
+  __drawAll(pieceFuncs) {
+    pieceFuncs.forEach((func) => {
       let pieces = func();
       pieces.forEach((p) => {
         this.__drawPiece(p.style, p.coords);
       });
     });
   }
-  refresh() {
+  refresh(pieceFuncs) {
     this.gameBoard.innerHTML = "";
-    renderTestField();
-    this.__drawAll();
+    this.__drawAll(pieceFuncs);
   }
 }

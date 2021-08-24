@@ -1,43 +1,17 @@
 import { Snake } from "./Snake.js";
-import { Board } from "./Board.js";
-/**
- * @typedef {Object} SnakeData
- * @property {number} x
- * @property {number} y
- * @property {number} direction
- * @property {string} style
- * @property {string} leftKey
- * @property {string} rightKey
- */
-/**
- * @typedef {Object} GameSettings
- * @property {Board} board
- * @property {number} X_Tiles
- * @property {number} Y_Tiles
- * @property {number} SnakeLength
- * @property {number} SnakeSpeed
- * @property {[SnakeData]} Snakes
- */
+
 export class Game {
   /**
-   * @param {GameSettings} settings
+   * @param {function} endGame
+   * @param {function} getFreeSquare
    */
-  constructor(settings) {
+  constructor(endGame, snakes, makeFood) {
     this.food = [];
-    this.gameOver = false;
+    this.snakes = snakes;
     this.foodCount = settings.Foods;
-    this.snakes = settings.Snakes.map((snakeData) => {
-      return new Snake(
-        snakeData.x,
-        snakeData.y,
-        snakeData.direction,
-        settings.SnakeLength,
-        snakeData.style,
-        snakeData.leftKey,
-        snakeData.rightKey
-      );
-    });
-    this.board = new Board(settings.X_Tiles, settings.Y_Tiles);
+    this.endGame = endGame;
+    this.makeFood = makeFood;
+    this.isRunning = false;
     this.getSnakePieces = () => {
       return this.snakes.reduce(this.snakeReducer, []);
     };
@@ -56,16 +30,7 @@ export class Game {
     }));
     return [...outlist, ...pieces];
   }
-  spawnFood() {
-    let coords = this.board.getFreeSquare(
-      this.snakes.reduce((arr, snake) => {
-        return [...arr, ...snake.getBody()];
-      }, [])
-    );
-    this.food.push(coords);
-  }
   /**
-   *
    * @param {Snake} s
    */
   moveSnake(s) {
@@ -83,7 +48,7 @@ export class Game {
       return [...arr, ...snake.getBody()];
     }, []);
     let matches = this.coordsExist(head, parts);
-    if (matches > 1) this.gameOver = true;
+    if (matches > 1) this.snakes = this.snakes.filter((snake) => snake !== s);
   }
   coordsExist(coord, arr) {
     let count = 0;
@@ -93,12 +58,13 @@ export class Game {
     return count;
   }
   tick() {
-    //this.snake.info();
     this.snakes.forEach((s) => {
       this.moveSnake(s);
     });
+    if (this.snakes.length === 1) this.endGame(this.snakes[0]);
     if (this.food.length === 0) {
-      this.spawnFood();
+      let food = this.makeFood(this.snakes);
+      this.food.push(food);
     }
   }
 }
