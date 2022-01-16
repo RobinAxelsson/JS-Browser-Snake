@@ -4,6 +4,7 @@
   "description": "## Requirements:",
   "main": "main.js",
   "scripts": {
+    "build": "webpack build",
     "start": "webpack serve",
     "watch": "webpack --watch",
     "--test-watch": "jest --watch",
