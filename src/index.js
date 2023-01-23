@@ -1,9 +1,8 @@
 import { Game } from "./modules/Game.js";
 import { GameGraphics } from "./modules/GameGraphics.js";
-import { SNAKE_SPEED } from "./modules/Const.js";
+import { SNAKE_SPEED, DEFAULT_GAME, SNAKES } from "./modules/Const.js";
 import { Control } from "./modules/Control.js";
 import { renderGameBoard } from "./modules/coordmap.js";
-import { DEFAULT_GAME, SNAKES } from "./modules/gamesettings.js";
 
 const board = document.getElementById("game-board");
 const addPlayerBtn = document.getElementById("add-player-btn");
