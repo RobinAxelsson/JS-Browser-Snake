@@ -6,25 +6,25 @@ yarn add --save-dev @babel/core @babel/cli @babel/preset-env
 ./node_modules/.bin/babel src --out-dir dist
 Maybe webpack command should be used instead.
 
-## Requirements:
+## Requirements
 
 - Classic snake-game
 - Two button movement
 - Multiplayer in browser
 - Multiplayer over network
 
-## Test part:
+## Test part
 
 - Fast unit tests to check methods, and creation av HTML-ELements
 - A way to debug without Live Server
 
-  ### Techniques
+### Techniques
 
-  - Jest
-  - Headless Chrome
-  - Live Server
-  - VS Code debug
-  - Selenium?
+- Jest
+- Headless Chrome
+- Live Server
+- VS Code debug
+- Selenium?
 
 ## User Stories
 

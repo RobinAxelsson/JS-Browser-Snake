@@ -9,10 +9,7 @@ export function renderTestField() {
       const square = document.createElement("div");
       square.style.gridRowStart = x + 1;
       square.style.gridColumnStart = y + 1;
-      square.innerText = x + "," + y;
       square.style.fontSize = "8px";
-      square.style.borderStyle = "solid";
-      square.style.borderWidth = "1px";
       board.appendChild(square);
     }
   }

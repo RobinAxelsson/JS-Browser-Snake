@@ -10,11 +10,15 @@
         body {
             height: 100vh;
             width: 100vw;
-            display: flex;
+            display: column;
             justify-content: center;
             align-items: center;
             margin: 0;
             background-color: black;
+        }
+
+        * {
+            margin: 0px;
         }
 
         #game-board {
@@ -28,6 +32,7 @@
             background-color: hsl(200, 100%, 50%);
             border: .25vmin solid black;
         }
+
         .snake-2 {
             background-color: hsl(22, 100%, 50%);
             border: .25vmin solid black;
@@ -37,11 +42,20 @@
             background-color: hsl(50, 100%, 50%);
             border: .25vmin solid black;
         }
+
+        .info-display {
+            background-color: white;
+        }
     </style>
     <script src="index.js" defer type="module"></script>
 </head>
 
 <body>
+
+    <div class="info-display">
+        <p>blue controls: left-right</p>
+        <p>red controls: q-e</p>
+    </div>
     <div id="game-board"></div>
 </body>
 

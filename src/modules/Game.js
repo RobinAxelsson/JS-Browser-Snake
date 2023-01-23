@@ -72,7 +72,6 @@ export class Game {
     s.move();
     this.board.transformEdgeCoords(s.getBody());
     let head = s.getHead();
-    console.log(head);
     this.food.forEach((f) => {
       if (f[0] == head[0] && f[1] == head[1]) {
         s.grow();
@@ -93,7 +92,6 @@ export class Game {
     return count;
   }
   tick() {
-    //this.snake.info();
     this.snakes.forEach((s) => {
       this.moveSnake(s);
     });
