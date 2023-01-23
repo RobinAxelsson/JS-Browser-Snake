@@ -22,11 +22,11 @@ export class Game {
   /**
    * @param {GameSettings} settings
    */
-  constructor(settings) {
+  constructor(settings, snakes) {
     this.food = [];
     this.gameOver = false;
     this.foodCount = settings.Foods;
-    this.snakes = settings.Snakes.map((snakeData) => {
+    this.snakes = snakes.map((snakeData) => {
       return new Snake(
         snakeData.x,
         snakeData.y,

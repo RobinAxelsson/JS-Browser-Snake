@@ -1,6 +1,6 @@
 import { X_TILES, Y_TILES } from "./Const.js";
 
-export function renderTestField() {
+export function renderGameBoard() {
   const board = document.getElementById("game-board");
   board.style.setProperty("grid-template-rows", `repeat(${Y_TILES}, 1fr)`);
   board.style.setProperty("grid-template-columns", `repeat(${X_TILES}, 1fr)`);

@@ -1,4 +1,4 @@
-import { renderTestField } from "./coordmap.js";
+import { renderGameBoard } from "./coordmap.js";
 
 export class GameGraphics {
   /**
@@ -37,7 +37,7 @@ export class GameGraphics {
   }
   refresh() {
     this.gameBoard.innerHTML = "";
-    renderTestField();
+    renderGameBoard();
     this.__drawAll();
   }
 }
