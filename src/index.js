@@ -27,7 +27,7 @@ removePlayerBtn.onclick = () => {
 
 const startBtn = document.getElementById("start-game-btn");
 const quitGameBtn = document.getElementById("quit-game-btn");
-let endGame = false;
+let quitGame = false;
 startBtn.onclick = () => {
   renderGameBoard();
   createGame();
@@ -39,14 +39,14 @@ startBtn.onclick = () => {
 quitGameBtn.onclick = () => {
   startBtn.innerText = "New Game";
   quitGameBtn.style.display = "none";
-  endGame = true;
+  quitGame = true;
 }
 
 let lastRenderTime = 0;
 let game;
 let graphics;
 function createGame(){
-  endGame = false;
+  quitGame = false;
   lastRenderTime = 0;
   game = new Game(DEFAULT_GAME, SNAKES.slice(0,iPlayers));
   graphics = new GameGraphics(
@@ -62,17 +62,12 @@ function createGame(){
 }
 
 function gameLoop(currentTime) {
-  if (game.gameOver === true) return;
+  if (game.gameOver || quitGame) return;
   const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
   if (secondsSinceLastRender > 1 / SNAKE_SPEED) {
     lastRenderTime = currentTime;
     game.tick();
     graphics.refresh();
   }
-
-  if(endGame){
-    return;
-  }
-
   window.requestAnimationFrame(gameLoop);
 }

@@ -82,7 +82,12 @@ export class Game {
       return [...arr, ...snake.getBody()];
     }, []);
     let matches = this.coordsExist(head, parts);
-    if (matches > 1) this.gameOver = true;
+    if (matches > 1){
+      this.snakes = this.snakes.filter(x => x != s);
+      if(this.snakes.length === 1){
+        this.gameOver = true;
+      }
+    }
   }
   coordsExist(coord, arr) {
     let count = 0;
