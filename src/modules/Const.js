@@ -10,7 +10,7 @@ export const Y_TILES = 41;
  * @property {number} Y_Tiles
  * @property {number} SnakeLength
  * @property {number} SnakeSpeed
- * @property {[SnakeData]} Snakes
+ * @property {number} Foods
  */
 /** @type {GameSettings} */
 export const DEFAULT_GAME = {
@@ -18,6 +18,7 @@ export const DEFAULT_GAME = {
     Y_Tiles: Y_TILES,
     SnakeLength: SNAKE_LENGTH,
     SnakeSpeed: SNAKE_SPEED,
+    Foods: 3
   };
   
   export const SNAKES = [

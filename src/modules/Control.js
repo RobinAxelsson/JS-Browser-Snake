@@ -13,7 +13,6 @@ export class Control {
    * @param {KeyboardEvent} event
    */
   onKeyPressEvent(event) {
-    console.log(event.key);
     if (event.key === this.leftKey) {
       this.snake.turnLeft();
     }

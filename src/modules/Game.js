@@ -48,6 +48,10 @@ export class Game {
       }));
       return pieces;
     };
+
+    for (let i = 0; i < this.foodCount; i++) {
+      this.spawnFood();
+    }
   }
   snakeReducer(outlist, snake) {
     let pieces = snake.body.map((coords) => ({
@@ -57,12 +61,12 @@ export class Game {
     return [...outlist, ...pieces];
   }
   spawnFood() {
-    let coords = this.board.getFreeSquare(
-      this.snakes.reduce((arr, snake) => {
-        return [...arr, ...snake.getBody()];
-      }, [])
-    );
-    this.food.push(coords);
+      let coords = this.board.getFreeSquare(
+        this.snakes.reduce((arr, snake) => {
+          return [...arr, ...snake.getBody()];
+        }, [])
+      );
+      this.food.push(coords);
   }
   /**
    *
@@ -75,7 +79,7 @@ export class Game {
     this.food.forEach((f) => {
       if (f[0] == head[0] && f[1] == head[1]) {
         s.grow();
-        this.food.pop();
+        this.food = this.food.filter(x => x[0] !== f[0] && x[1] !== f[1]);
       }
     });
     let parts = this.snakes.reduce((arr, snake) => {
@@ -100,7 +104,7 @@ export class Game {
     this.snakes.forEach((s) => {
       this.moveSnake(s);
     });
-    if (this.food.length === 0) {
+    if (this.food.length < this.foodCount) {
       this.spawnFood();
     }
   }
